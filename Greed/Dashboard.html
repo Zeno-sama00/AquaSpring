@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aqua Spring V2</title>
+    <link rel="stylesheet" href="styles.css"> 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="company">
+                <img src="Images/logo-final.png" alt="Logo">
+                <span class="company-name">Aqua Spring</span>
+            </div>
+            <ul>
+                <li><img src="Images/menu.png" alt="Dashboard" class="icon"> <span>Dashboard</span></li>
+                <li><img src="Images/press-button.png" alt="Remote" class="icon"> <span>Remote</span></li>
+                <li><img src="Images/file.png" alt="History" class="icon"> <span>History</span></li>
+                <li><img src="Images/settings.png" alt="Settings" class="icon"> <span>Settings</span></li>
+                <li><img src="Images/log-out.png" alt="Logout" class="icon"> <span>Logout</span></li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Navbar -->
+            <div class="navbar">             
+                <div class="dashboard-title">Dashboard</div>            
+                <div class="right-section">
+                    <img src="Images/noti.png" alt="Notification" class="icon">
+                    <img src="Images/profile.png" alt="Profile" class="icon profile-pic">
+                </div>
+            </div>
+
+            <!-- Page Content -->
+            <div class="content-area">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Real-time NPK Levels</h2> 
+                    </div> <br>
+                 <div class="card-content">
+                        <div class="stat">
+                            <div><img src="Images/nitrogen (1).png" alt="" class="icon-1"></div>
+                            <div class="details">
+                                <h3>120</h3>
+                                <p>Nitrogen (N)</p>
+                            </div>
+                        </div>
+                        <div class="stat">
+                            <div><img src="Images/phosphorus.png" alt="" class="icon-1"></div>
+                            <div class="details">
+                                <h3>80</h3>
+                                <p>Phosphorus (P)</p>
+                            </div>
+                        </div>
+                        <div class="stat">
+                            <div><img src="Images/potassium.png" alt="" class="icon-1"></div>
+                            <div class="details">
+                                <h3>60</h3>
+                                <p>Potassium (K)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-1">
+                    <h3>Real-time Soil Moisture Level</h3>
+                    <svg width="120" height="120" viewBox="0 0 120 120">
+                        <!-- Background Circle -->
+                        <circle cx="60" cy="60" r="50" stroke="#ddd" stroke-width="10" fill="none"/>
+                        <!-- Progress Circle -->
+                        <circle id="progress-circle" cx="60" cy="60" r="50" stroke="#007bff" stroke-width="10" fill="none"
+                            stroke-dasharray="314" stroke-dashoffset="314" stroke-linecap="round"
+                            transform="rotate(-90 60 60)"/>
+                        <!-- Percentage Text -->
+                        <text x="50%" y="50%" text-anchor="middle" alignment-baseline="middle" id="progress-text"
+                            font-size="16px" fill="#000">0%</text>
+                    </svg>
+                </div>
+                <div class="card-2">
+                    <h3 id="productionTitle" class="production-title">No Production Started</h3>
+                    <canvas id="npkChart"></canvas>
+                    <div class="col-2 down">
+                        <!-- <div class="production-buttons"> -->
+                            <button id="newProductionBtn" class="end-production-btn">New Production</button>       
+                            <button id="endProductionBtn" class="end-production-btn">End Production</button>
+                           
+                            <!-- Popup Modal for End Production Confirmation -->
+                            <div id="endProductionModal" class="popup">
+                                <div class="modal-content">
+                                    <p>Are you sure you want to end the production?</p> <br>
+                                    <button id="confirmEndProduction" class="confirm-btn">Yes</button>
+                                  
+                                    <button id="cancelEndProduction" class="cancel-btn">No</button>
+                                </div>
+                            </div>
+                            
+                        <!-- </div> -->
+                    <div id="newProductionPopup" class="popup">
+                        <div class="popup-content">
+                            <h2>Start New Production</h2>
+                            <label for="productionName">Production Name:</label>
+                            <input type="text" id="productionName">
+                            <button id="nextStepBtn">Next</button>
+                            <button id="closePopup">Cancel</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Calendar Popup -->
+                    <div id="calendarPopup" class="popup">
+                        <div class="popup-content">
+                            <h2>Select Start Date</h2>
+                            <input type="date" id="startDate">
+                            <button id="confirmProductionBtn">Confirm</button>
+                            <button id="closeCalendarPopup">Cancel</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="calendar">
+                    <div class="header">
+                        <button id="prevMonth">&lt;</button>
+                        <h2 id="monthYear"></h2>
+                        <button id="nextMonth">&gt;</button>
+                    </div>
+                    <div id="weekdaysRow" class="weekdays"></div>
+                    <div class="days" id="calendarDays"></div>
+                </div>
+                <div class="weather-widget full-col">
+                    <h2 id="city-name">Today's Weather</h2>
+                    <div id="forecast" class="forecast-container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="jscript.js"></script>
+</body>
+</html>
