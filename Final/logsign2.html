@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create an Account</title>
+    <link rel="stylesheet" href="logsign.css">
+    <!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
+</head>
+<body>
+    <div class="form-container">
+        <div class="logo-container">
+            Welcome To Aqua Spring!
+        </div>
+        <div class="line"></div>
+        <form id="signup-form" class="form">
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input required="" placeholder="Enter your email" name="email" id="email" type="text">
+            </div> 
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input required="" name="password" placeholder="Enter your password" id="password" type="password">
+            </div>
+   
+            <button type="submit" class="form-submit-btn">Sign Up</button>
+        </form>
+        
+        <p class="signup-link">
+            Already have an account?
+            <a class="signup-link link" href="logsign.html"> Sign in now</a>
+        </p>
+    </div>
+    <script src="user.js" type="module" defer></script>
+</body>
+</html>

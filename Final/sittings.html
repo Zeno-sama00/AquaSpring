@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <link rel="stylesheet" href="Stayl.css">
+    <script src="skep.js" type="module" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+       <!-- Bootstrap CSS (for modal) -->
+       <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+       <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="sittings.css">
+  
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="company">
+            <img src="Images/logo-final.png" alt="Logo">
+            <span class="company-name">Aqua Spring</span>
+        </div>
+        <div class="user-profile">
+            <img id="profilePreview" src="Images/person.png" alt="User">
+            <h2 id="userName">Esther Howard</h2>
+            <span class="badge">ADMIN</span>
+        </div>
+        
+        <nav>
+            <ul>
+             <a href="Dashburd.html" class="no-style"><li><img src="Images/menu.png" alt="Dashboard" class="icon"> <span>Dashboard</span></li></a>
+             <a href="Rimot.html" class="no-style"><li><img src="Images/press-button.png" alt="Remote" class="icon"> <span>Remote</span></li></a>
+             <a href="History.html" class="no-style"><li><img src="Images/file.png" alt="History" class="icon"> <span>History</span></li></a>
+             <a href="sittings.html" class="no-style"><li><img src="Images/settings.png" alt="Settings" class="icon"> <span>Settings</span></li></a>
+            </ul>
+        </nav>
+        <button class="logout">Log out</button>
+    </aside>
+    <div class="main-content">
+        <div class="navbar">
+            <div class="dashboard-title">Settings</div>
+        </div>
+        <div class="content-area2">
+           
+            <div class="settings-container">
+                <h2>Update Profile</h2>
+                
+                <div class="group">
+                    <label for="userNameInput"></label>
+                    <input type="text" id="userNameInput" class="input" placeholder="Your Name">
+                   
+                    <input type="text" id="userRoleInput" class="input" placeholder="Your Role">
+                    <label for="userRoleInput"></label>
+                </div>
+            
+                <div class="group">
+                    <img id="profilePreview" class="profile-preview" src="Images/person.png" alt="Profile Preview">
+                </div>
+            
+                <div class="group">
+                    <label for="userImgUpload"></label>               
+                    <input type="file" id="userImgUpload">
+                </div>
+            
+                <button id="saveSettings">Save Changes</button>
+            </div>
+            
+    <script src="sittings.js"></script> 
+    
+</body>
+</html>
