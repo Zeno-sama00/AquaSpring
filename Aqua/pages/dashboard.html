@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="../css/weather.css">
+  <link rel="stylesheet" href="../css/main.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+   
+  </style>
+</head>
+<body>
+  <sidebar-component></sidebar-component>
+
+  <main class="main-content">
+    <div class="weather-dropdown">
+      <div class="dropdown-header" id="weatherHeader">
+        <span style="flex-grow: 1; font-weight: 600;">Weather Forecast</span>
+        <button id="weatherToggle" class="weather-toggle-btn">
+          <img src="../images/down.png" class="toggle-icon active" id="closeIcon" alt="Close">
+          <img src="../images/left1.png" class="toggle-icon" id="menuIcon" alt="Menu">
+        </button>
+      </div>
+      <div class="dropdown-content" id="weatherContent">
+        <div class="prof-info">
+          <div id="weather-widget">
+            <div class="cards-container" id="weather-cards"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <!-- Rest of your dashboard content remains the same -->
+    <div class="dashboard-container">
+      <h1>Dashboard</h1>
+
+      <!-- Production Info Section -->
+      <div class="prof-info prod">
+        <h2 id="productionStatus" style="font-weight: 800;">No Production Started</h2>
+        <div class="prod-btns">
+          <button id="startProduction" class="btn-prod">Start Production</button>
+          <button id="endProduction" class="btn-prod" disabled>End Production</button>
+        </div>
+      </div>
+
+      <!-- Sensors Section -->
+      <div class="dashboard-section">
+        
+        <!-- Real-time NPK Card -->
+        <div class="prof-info border">
+          <h2>Real-Time NPK Sensor</h2>
+          <div class="rtime">
+            <div class="npk-container">
+              <div class="stat">
+                <img src="../images/nitrogen (1).png" alt="Nitrogen Icon" class="icon-1">
+                <div class="details">
+                  <h3>120</h3>
+                  <p>Nitrogen (N)</p>
+                </div>
+              </div>
+              <div class="stat">
+                <img src="../images/phosphorus.png" alt="Phosphorus Icon" class="icon-1">
+                <div class="details">
+                  <h3>80</h3>
+                  <p>Phosphorus (P)</p>
+                </div>
+              </div>
+              <div class="stat">
+                <img src="../images/potassium.png" alt="Potassium Icon" class="icon-1">
+                <div class="details">
+                  <h3>60</h3>
+                  <p>Potassium (K)</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Real-time Soil Moisture Card -->
+        <div class="prof-info border">
+          <h2>Real-Time Soil Moisture</h2>
+          <div class="rtime">
+            <div class="soil-container">
+              <div class="stat">
+                <img src="../images/water.png" alt="Water Icon" class="icon-1">
+                <div class="details">
+                  <h3>120</h3>
+                  <p>Soil Moisture</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div> <!-- End of Sensors Section -->
+
+      <!-- Graph and Updates Section -->
+      <div class="dashboard-section">
+
+        <!-- Multi-Line Chart -->
+        <div class="prof-info graph">
+          <h2>Soil Nutrient Monitoring (N, P, K)</h2>
+          <div class="graph-container">
+            <canvas id="multiLineChart" width="300" height="100"></canvas>
+          </div>
+        </div>
+
+        <!-- Updates Section -->
+        <div class="prof-info upds">
+          <h2>Updates</h2>
+          <div class="card-update">
+            <div class="chat-header">
+              <button id="clearLogBtn">Clear Log</button>
+            </div>
+            <div class="chat-window">
+              <ul class="message-list"></ul>
+            </div>
+          </div>
+        </div>
+
+      </div> <!-- End of Graph and Updates Section -->
+
+    </div> <!-- End of Dashboard Container -->
+
+    <!-- Production Modal -->
+    <div id="prodModal" class="modal" style="display: none;">
+      <div class="modal-box">
+        <h2>Start New Production</h2>
+        <input type="text" id="prodNameInput" placeholder="Enter production name">
+        <div class="modal-buttons">
+          <button id="cancelProdBtn">Cancel</button>
+          <button id="confirmProdBtn">Start</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- End Production Modal -->
+    <div id="endProdModal" class="modal" style="display: none;">
+      <div class="modal-box">
+        <h2>End Production</h2>
+        <p>Are you sure you want to end the current production?</p>
+        <div class="modal-buttons">
+          <button id="cancelEndBtn">No</button>
+          <button id="confirmEndBtn">Yes</button>
+        </div>
+      </div>
+    </div>
+   
+
+    <div id="modal-10" class="modal-10-container">
+      <div class="modal-10-box">
+        <h2 style="color: red;">Warning!</h2>
+        <p>Are you really sure you want to delete the logs?<br><strong>Action cannot be undone.</strong></p>
+        <div class="modal-10-buttons">
+          <button id="confirmDeleteBtn" class="confirm-btn">Yes, Delete</button>
+          <button id="cancelDeleteBtn" class="cancel-btn">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const EXPANDED_MARGIN = '220px';
+      const COLLAPSED_MARGIN = '40px';
+
+      const sidebarComponent = document.querySelector('sidebar-component');
+      const sidebarToggle = sidebarComponent?.shadowRoot?.querySelector('.toggle-btn') || 
+                             document.querySelector('.sidebar-toggle');
+
+      function handleSidebarToggle() {
+        document.body.classList.toggle('collapsed');
+        document.body.style.marginLeft = document.body.classList.contains('collapsed') 
+          ? COLLAPSED_MARGIN 
+          : EXPANDED_MARGIN;
+      }
+
+      if (sidebarToggle) {
+        sidebarToggle.addEventListener('click', handleSidebarToggle);
+      }
+
+      const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(mutation => {
+          if (mutation.attributeName === 'collapsed') {
+            const isCollapsed = mutation.target.getAttribute('collapsed') === 'true';
+            document.body.classList.toggle('collapsed', isCollapsed);
+            document.body.style.marginLeft = isCollapsed ? COLLAPSED_MARGIN : EXPANDED_MARGIN;
+          }
+        });
+      });
+
+      if (sidebarComponent) {
+        observer.observe(sidebarComponent, { attributes: true, attributeFilter: ['collapsed'] });
+      }
+    });
+
+  </script>
+
+  <!-- External JS Files -->
+  <script type="module" src="../js/main.js"></script>
+  <script type="module" src="../js/weather.js" defer></script>
+  <script type="module" src="../js/sidebar.js"></script>
+
+</body>
+</html>

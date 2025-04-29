@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Remote</title>
+    <link rel="stylesheet" href="../css/remote.css" />
+    <link rel="stylesheet" href="../css/weather2.css" />
+
+  </head>
+  <body>
+    <sidebar-component></sidebar-component>
+    <main class="main-content">
+      <div class="remote-container">
+        <h1>Remote</h1>
+        <div class="remote-section1">
+          <div class="prof-info">
+            <h2>Real-time Soil Moisture</h2>
+            <div class="NPK">
+              <div class="soil-container">
+                <div class="stat">
+                  <div>
+                    <img src="../images/water.png" alt="" class="icon-1" />
+                  </div>
+                  <div class="details">
+                    <h3>120</h3>
+                    <p>Soil Moisture</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="prof-info">
+            <h2>Manual Watering</h2>
+            <div class="sec">
+              <div id="manualPumpControl">
+                <button id="pumpControlBtn" class="water-button">
+                  <span class="button_top">Start Watering</span>
+                </button>
+                <p id="pumpStatusText" class="text-sm text-gray-600">
+                  Pump is currently
+                <span id="pumpState" class="font-semibold text-red-500">OFF</span>.
+                <span id="pumpTimer" class="font-semibold" style="display: none;">(running for <span id="timerSeconds">0</span> seconds)</span>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="prof-info">
+            <h2>Activity Log</h2>
+            <div class="card-update">
+              <div class="chat-header"></div>
+              <div class="chat-window">
+                <ul id="updatesLog" class="message-list text-sm">
+                  <!-- Example logs -->
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        <div class="">
+            <div class="prof-info weather-widget-box">
+              <h2>Weather</h2>
+              <div id="weather-widget">
+                <div class="cards-scroll-container" id="weatherScrollContainer">
+                  <div class="cards-container" id="weather-cards">
+                    <!-- Cards will be inserted here -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="prof-info">
+              <h2>Real-time Soil Moisture</h2>
+              <div class="NPK">
+                <div class="soil-container">
+                  <div class="stat">
+                    <div>
+                      <img src="../images/water.png" alt="" class="icon-1" />
+                    </div>
+                    <div class="details">
+                      <h3>120</h3>
+                      <p>Soil Moisture</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+          </div>
+      </div>
+      <div id="noProductionModal" class="modal-xd hidden-xd">
+        <div class="modal-content-xd">
+          <span class="close-xd">&times;</span>
+          <p>No active production found. Please create one in the admin panel.</p>
+        </div>
+      </div>
+    </main>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const EXPANDED_MARGIN = "220px";
+        const COLLAPSED_MARGIN = "40px";
+
+        const sidebarToggle =
+          document
+            .querySelector("sidebar-component")
+            .shadowRoot?.querySelector(".toggle-btn") ||
+          document.querySelector(".sidebar-toggle");
+
+        function handleSidebarToggle() {
+          document.body.classList.toggle("collapsed");
+          document.querySelector("#pumpControlBtn .button_top").textContent =
+            pumpRunning ? "Stop Watering" : "Start Watering";
+          document.body.style.marginLeft = document.body.classList.contains(
+            "collapsed"
+          )
+            ? COLLAPSED_MARGIN
+            : EXPANDED_MARGIN;
+        }
+
+        if (sidebarToggle) {
+          sidebarToggle.addEventListener("click", handleSidebarToggle);
+        }
+
+        const observer = new MutationObserver(function (mutations) {
+          mutations.forEach(function (mutation) {
+            if (mutation.attributeName === "collapsed") {
+              const isCollapsed =
+                mutation.target.getAttribute("collapsed") === "true";
+              document.body.classList.toggle("collapsed", isCollapsed);
+              document.body.style.marginLeft = isCollapsed
+                ? COLLAPSED_MARGIN
+                : EXPANDED_MARGIN;
+            }
+          });
+        });
+
+        const sidebar = document.querySelector("sidebar-component");
+        if (sidebar) {
+          observer.observe(sidebar, {
+            attributes: true,
+            attributeFilter: ["collapsed"],
+          });
+        }
+      });
+
+    </script>
+     <script type="module" src="../js/remote.js" defer></script>
+    <script type="module" src="../js/weather.js" defer></script>
+    <script type="module" src="../js/sidebar.js"></script>
+  </body>
+</html>

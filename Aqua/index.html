@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script type="module" src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+  <script type="module" src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+  <script type="module" src="js/user.js"></script>
+</head>
+<body class="flex items-center justify-center min-h-screen bg-gray-100">
+
+  <div class="w-80 rounded-lg shadow h-auto p-6 bg-white relative overflow-hidden">
+    <div class="flex flex-col justify-center items-center space-y-2">
+      <h2 class="text-2xl font-medium text-slate-700">Login</h2>
+      <p class="text-slate-500">Enter details below.</p>
+    </div>
+    
+    <!-- Message Display -->
+    <div id="loginMessage" class="text-center hidden"></div>
+
+    <form class="w-full mt-4 space-y-3" id="loginForm">
+      <div>
+        <input
+          class="outline-none border-2 rounded-md px-2 py-1 text-slate-500 w-full focus:border-blue-300"
+          placeholder="Username"
+          id="username"
+          name="username"
+          type="text"
+        />
+      </div>
+      <div class="relative">
+        <input
+          class="outline-none border-2 rounded-md px-2 py-1 text-slate-500 w-full focus:border-blue-300"
+          placeholder="Password"
+          id="password"
+          name="password"
+          type="password"
+        />
+        <button type="button" id="eyeButton" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 focus:outline-none">
+          👁️
+        </button>
+      </div>
+      <div class="flex items-center">
+        <input class="mr-2 w-4 h-4" id="remember" name="remember" type="checkbox" />
+        <span class="text-slate-500">Remember me</span>
+      </div>
+      <button class="w-full justify-center py-1 bg-blue-500 hover:bg-blue-600 active:bg-blue-700 rounded-md text-white ring-2" type="submit">
+        Login
+      </button>
+      <p class="flex justify-center space-x-1">
+        <span class="text-slate-700">Don't have an account?</span>
+        <a class="text-blue-500 hover:underline" href="pages/signup.html">Sign Up</a>
+      </p>
+    </form>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,395 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    margin-left: 220px; /* Sidebar width */
+    background-color: #f5f7fa;
+    transition: margin-left 0.3s;
+    min-height: 100vh;
+    display: flex; /* Added */
+    justify-content: center; /* Added */
+}
+/* .main-content:has(#weather-widget:not(.collapsed)) .dashboard-container {
+  
+    transition: filter 0.3s ease;
+}
+#weather-widget {
+    position: fixed; 
+    top: 20px;
+    right: 230px;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+#weather-widget.collapsed {
+    transform: scale(0.9);
+    opacity: 0;
+    pointer-events: none;
+} */
+
+body.collapsed {
+    margin-left: 80px;
+}
+
+.main-content {
+    padding: 30px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.dashboard-container {
+    max-width: 1600px;
+    width: calc(100% - 60px); /* Accounts for padding */
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    padding: 30px;
+    display: grid;
+    grid-template-columns: 1fr;
+    transition: all 0.3s ease;
+    gap: 10px;
+  
+}
+body.collapsed .dashboard-container {
+    max-width: 1800px; /* Slightly wider when sidebar is smaller */
+}
+h1 {
+    color: #4a6fa5;
+    font-size: 24px;
+    grid-column: 1 / -1;
+}
+
+.dashboard-section {
+    border-bottom: 1px solid #eee;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 10px;
+}
+
+.dashboard-section:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+.dashboard-section1 {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.dashboard-section1:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+/* .border {
+    border: 5px solid transparent;
+    border-image:   linear-gradient(45deg, #ffbc00, #ff0058) 1;
+} */
+h2 {
+    font-size: 18px;
+    color: #333;
+}
+.rtime {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* This centers vertically */
+    min-height: 100px;
+}
+.npk-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    justify-content: space-around;
+}
+.graph-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* This centers vertically */
+    min-height: 200px; /* Adjust as needed */
+}
+.stat {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.icon-1 {
+    width: 55px;
+    height: 55px;
+}
+
+.soil-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.prof-info h2{
+ text-align: center;
+}
+
+.prof-info.upds {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  .card-update {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  
+  .chat-header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    font-size: 18px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+  
+  .chat-window {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+  }
+  
+  .message-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    max-height: 300px;
+    overflow-y: auto;
+  
+  }
+  
+  .message-list li {
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .prod {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .btn-prod {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    background-color: #333;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .btn-prod:hover:enabled {
+    background-color: #555;
+  }
+  
+  .btn-prod:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
+  }
+/* Modal background */
+/* Shared Modal Styles */
+#prodModal, #endProdModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(2px);
+}
+
+/* Shared Modal Box Styles */
+.modal-box {
+    background-color: #ffffff;
+    padding: 24px;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 420px;
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+    animation: fadeInScale 0.3s ease-in-out;
+}
+
+/* Shared Title Styles */
+.modal-box h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Shared Button Container */
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+/* Shared Button Styles */
+.modal-box button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+/* Shared Cancel Button */
+#cancelProdBtn, #cancelEndBtn {
+    background-color: #e0e0e0;
+    color: #333;
+}
+
+#cancelProdBtn:hover, #cancelEndBtn:hover {
+    background-color: #c0c0c0;
+}
+
+/* Shared Confirm Button */
+#confirmProdBtn, #confirmEndBtn {
+    background-color: #007bff;
+    color: #fff;
+}
+
+#confirmProdBtn:hover, #confirmEndBtn:hover {
+    background-color: #0056b3;
+}
+
+/* Start Production Modal Specific */
+#prodModal input {
+    width: 100%;
+    padding: 10px 14px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.2s;
+}
+
+#prodModal input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* End Production Modal Specific */
+#endProdModal p {
+    margin-bottom: 20px;
+    font-size: 16px;
+    color: #555;
+    line-height: 1.5;
+}
+
+/* Shared Animation */
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+#clearLogBtn {
+    background-color: #ff1a1a; 
+    color: white; 
+    padding: 5px 10px; 
+    border: none;
+    border-radius: 5px; 
+    cursor: pointer; 
+    font-size: 13px; 
+    transition: background-color 0.3s ease, transform 0.2s ease; 
+  }
+  #clearLogBtn:hover {
+    background-color: #ce1515; 
+  }
+  
+  #clearLogBtn:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(255, 0, 0, 0.5); 
+  }
+  
+  .prod-btns    {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  /* container is hidden by default */
+.modal-10-container {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+  
+  /* when we add .show, it becomes visible */
+  .modal-10-container.show {
+    display: flex;
+  }
+  
+  /* inner box styling */
+  .modal-10-box {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+  }
+  
+  /* button row */
+  .modal-10-buttons {
+    margin-top: 20px;
+  }
+  
+  /* buttons */
+  .confirm-btn,
+  .cancel-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .confirm-btn {
+    background-color: red;
+    color: white;
+    margin-right: 10px;
+  }
+  
+  .cancel-btn {
+    background-color: gray;
+    color: white;
+  }
+  
